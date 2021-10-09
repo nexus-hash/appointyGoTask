@@ -98,5 +98,24 @@ func TestGetUser(t *testing.T){
 }
 
 func TestGetUserPosts(t *testing.T){
+	id := "61616530c1471ce279c6fdd6"
+	url:= "/posts/users/"+id
+	body:= []byte(`{"Page":4,"Limit":3}`)
+	req,err := http.NewRequest("GET",url,bytes.NewBuffer(body));
+	if err != nil {
+		t.Error(err)
+	}
+	req.Header.Set("Content-Type","application/json")
+	rr:= httptest.NewRecorder()
+	handler := http.HandlerFunc(routes.GetUserPostsHandler);
+	handler.ServeHTTP(rr,req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+	
+	if rr.Body.Len()>3{
+		t.Errorf("handler returned More then the page limit")
+	}
 	t.Log("PASS")
 }
