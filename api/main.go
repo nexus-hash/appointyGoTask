@@ -29,11 +29,25 @@ func checkMethodType(method string,handler http.HandlerFunc) http.HandlerFunc{
 	}
 }
 
+func checkEnvironmentVariables()  {
+	if os.Getenv("PORT") == "" {
+		log.Fatal("$PORT must be set")
+	}
+	if os.Getenv("MONGO_URI") == "" {
+		log.Fatal("$MONGO_URI must be set")
+	}
+	if os.Getenv("DATABASE_NAME") == "" {
+		log.Fatal("$DATABASE_NAME must be set")
+	}
+}
+
 func main() {
 	mux:= http.NewServeMux()
 
-	//Database Connection	
+	//Checking the environment variables
+	checkEnvironmentVariables()
 
+	//Database Connection	
 	db,err := DatabaseConnection();
 	if err != nil {
 		log.Fatal("Database Connection Error $s",err)
@@ -41,11 +55,9 @@ func main() {
 	fmt.Println("Database connection Success!")
 
 	//Sending the database connection to the routes package
-
 	routes.DB = db;
 
 	//Routes
-
 	mux.HandleFunc("/users",checkMethodType("POST",routes.UserHandler));
 	mux.HandleFunc("/users/",checkMethodType("GET",routes.GetUserHandler));
 
@@ -54,7 +66,6 @@ func main() {
 	mux.HandleFunc("/posts/users/",checkMethodType("GET",routes.GetUserPostsHandler));
 
 	//Server Port Configuration
-
 	fmt.Println(os.Getenv("PORT"));
 	error := http.ListenAndServe(os.Getenv("PORT"), mux);
 	if error != nil {
@@ -85,7 +96,6 @@ func DatabaseConnection()(*mongo.Database,error){
 	fmt.Println(os.Getenv("DATABASE_NAME"));
 
 	//Initialize Database
-
 	database := client.Database(os.Getenv("DATABASE_NAME"))
 
 	return database,nil
