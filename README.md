@@ -3,7 +3,7 @@
 
 ### Details About the Endpoints
 
-- POST /users: To create a new user  
+- POST /users: To create a new user   {Implemented and Available}
 <pre><code>
   Checks if the user already exists in the database.
   If the user does not exist, creates a new user.
@@ -18,7 +18,7 @@
 </code></pre>
 
 
-- GET /users/{id}: To get a user by id
+- GET /users/{id}: To get a user by id  {Implemented and Available}
 <pre><code>
   Returns the user with the given id.
 
@@ -30,7 +30,7 @@
     "password"  : nil,
   }
 </code></pre>
-- POST /posts: To create a new post    
+- POST /posts: To create a new post    {Implemented and Available}  
 <pre><code>
   Creates a new post.
 
@@ -43,7 +43,7 @@
     "userid"    : primitive.ObecjId,     
   }
 </code></pre>
-- GET /posts/{id}: To get a post by id
+- GET /posts/{id}: To get a post by id    {Implemented and Available}
 <pre><code>
   Returns the post with the given id.
 
