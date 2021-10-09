@@ -20,11 +20,11 @@ type GetUserPost struct{
 
 // Get Response Format
 type Result struct{
-	Id					string 								`json:"_id"`
-	Caption 		string 								`json:"caption"`
-	ImageUrl 		string 								`json:"imageurl"`
-	PostedAt 		time.Time 						`json:"postedat"`
-	UserId			primitive.ObjectID		`json:"userid"`
+	Id          string                `json:"_id"`
+	Caption     string                `json:"caption"`
+	ImageUrl    string                `json:"imageurl"`
+	PostedAt    time.Time             `json:"postedat"`
+	UserId      primitive.ObjectID    `json:"userid"`
 }
 
 func  GetUserPostsHandler(w http.ResponseWriter, r *http.Request){
