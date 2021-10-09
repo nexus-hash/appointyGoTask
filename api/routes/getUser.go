@@ -12,7 +12,9 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-
+/*
+	Takes user id as url path parameter and returns the user details
+*/
 
 func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	uid := strings.TrimPrefix(r.URL.Path, "/users/")
@@ -30,6 +32,9 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	var user User
 	getUserResult.Decode(&user)
+
+	// Not returning user password for security reasons although it is reverse engineering safe
+
 	user.Password = ""
 	json_data2,err:=json.Marshal(user)
 	if err != nil {

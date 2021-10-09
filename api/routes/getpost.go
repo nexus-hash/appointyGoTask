@@ -11,6 +11,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+/*
+	Takes a post id as url path variable and returns the post details
+*/
+
 func GetPostHandler(w http.ResponseWriter, r *http.Request) {
 	pid := strings.TrimPrefix(r.URL.Path, "/posts/")
 	if pid == ""{

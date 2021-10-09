@@ -22,6 +22,8 @@ type User struct {
 	Password string `json:"password"`
 }
 
+// Hash Function to prevent password reverse engineering
+
 func get256Hash(password string) string {
 	hash := sha256.Sum256([]byte(password))
 	return fmt.Sprintf("%x", hash)
@@ -48,7 +50,7 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 	else:
 		return Already exists
 	*/
-	
+
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	getAvailUsers := DB.Collection("users").FindOne(ctx, bson.M{"email": user.Email})
 	if getAvailUsers.Err() != nil {

@@ -8,15 +8,20 @@ import (
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Post struct {
-	Id 				int64 		`bson:"_id" json:"_id"`
+	Id 				string 		`bson:"_id" json:"_id"`
 	Caption 	string		`json:"caption"`	
 	ImageURL 	string		`json:"imageurl"`
 	PostedAt 	time.Time `json:"-"`
-	UserId 		int64 		`json:"userid"`
+	UserId 		primitive.ObjectID 		`json:"userid"`
 }
+
+/*
+	Add New Post of the user to the database
+*/
 
 func PostHandler (w http.ResponseWriter, r *http.Request) {
 	headerContentType := r.Header.Get("Content-Type")
@@ -25,6 +30,7 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
+
 	var post Post
 	err := json.NewDecoder(r.Body).Decode(&post)
 	if err != nil {
@@ -32,7 +38,8 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	post.PostedAt = time.Now()
-
+	post.Id = primitive.NewObjectID().Hex()
+	
 	postDetails := bson.D{
 		{Key: "_id",Value: post.Id},
 		{Key: "caption",Value: post.Caption},
