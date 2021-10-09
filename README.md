@@ -67,13 +67,13 @@
   }
 
   Response :
-  {
+  [{
     "_id"       : string,     //Later Converted to Mongo ObjectId
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
     "userid"    : primitive.ObecjId,     
-  }
+  },Upto the Page Limit or till the end of the posts]
 </code></pre>
 
 
