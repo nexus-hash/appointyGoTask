@@ -5,5 +5,6 @@ import(
 )
 
 func  GetUserPostsHandler(w http.ResponseWriter, r *http.Request){
+	
 	return
 }

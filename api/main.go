@@ -24,17 +24,14 @@ func checkMethodType(method string,handler http.HandlerFunc) http.HandlerFunc{
 	}
 }
 
-
+type Env struct {
+	DB *mongo.Database
+}
 
 func main() {
 	mux:= http.NewServeMux()
 
-	mux.HandleFunc("/users",checkMethodType("POST",routes.UserHandler));
-	mux.HandleFunc("/users/:id",checkMethodType("GET",routes.GetUserHandler));
-
-	mux.HandleFunc("/posts",checkMethodType("POST",routes.PostHandler));
-	mux.HandleFunc("/posts/:id",checkMethodType("GET",routes.GetPostHandler));
-	mux.HandleFunc("/posts/users/:id",checkMethodType("GET",routes.GetUserPostsHandler));
+	
 
 	db,err := DatabaseConnection();
 	if err != nil {
@@ -42,9 +39,14 @@ func main() {
 	}
 	fmt.Println("Database connection Success!")
 
-	UserCollection := db.Collection("user")
-	fmt.Println("User Collection Success!",UserCollection);
+	routes.DB = db;
+	mux.HandleFunc("/users",checkMethodType("POST",routes.UserHandler));
+	mux.HandleFunc("/users/",checkMethodType("GET",routes.GetUserHandler));
 
+	mux.HandleFunc("/posts",checkMethodType("POST",routes.PostHandler));
+	mux.HandleFunc("/posts/",checkMethodType("GET",routes.GetPostHandler));
+	mux.HandleFunc("/posts/users/:id",checkMethodType("GET",routes.GetUserPostsHandler));
+	fmt.Println(os.Getenv("PORT"));
 	error := http.ListenAndServe(os.Getenv("PORT"), mux);
 	if error != nil {
 		log.Fatal(error)
@@ -61,11 +63,11 @@ func DatabaseConnection()(*mongo.Database,error){
 		return nil,err
 	}
 	
-	defer client.Disconnect(ctx)
 	err = client.Ping(ctx, readpref.Primary())
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(os.Getenv("DATABASE_NAME"));
 	database := client.Database(os.Getenv("DATABASE_NAME"))
 
 	return database,nil
