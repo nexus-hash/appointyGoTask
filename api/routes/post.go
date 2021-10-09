@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -30,7 +29,7 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-
+	// Decode the request body into struct
 	var post Post
 	err := json.NewDecoder(r.Body).Decode(&post)
 	if err != nil {
@@ -39,12 +38,10 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the Post timestamp
-
 	post.PostedAt = time.Now()
 	pid := primitive.NewObjectID().Hex()
 	
 	// Add Post details to a bson Object
-
 	postDetails := bson.D{
 		{Key: "_id",Value: pid},
 		{Key: "caption",Value: post.Caption},
@@ -54,7 +51,6 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Insert the Post details to the database
-
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	insertResult, err := DB.Collection("Post").InsertOne(ctx, postDetails)
 	if err != nil {
@@ -63,7 +59,6 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return the Success Message
-
 	fmt.Println(insertResult.InsertedID)
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")

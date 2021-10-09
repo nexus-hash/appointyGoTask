@@ -34,6 +34,7 @@ func  GetUserPostsHandler(w http.ResponseWriter, r *http.Request){
 		Get User Posts
 		Takes Page No. and Limit as input
 		Returns the list of posts of the user for the given page no.
+		For Respose Data Refer README.md
 	*/
 
 

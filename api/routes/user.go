@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -15,6 +14,7 @@ import (
 
 var DB *mongo.Database
 
+// User Data Structure
 type User struct {
 	ID       string `bson:"_id" json:"_id"`
 	Username string `json:"username"`
@@ -23,7 +23,6 @@ type User struct {
 }
 
 // Hash Function to prevent password reverse engineering
-
 func get256Hash(password string) string {
 	hash := sha256.Sum256([]byte(password))
 	return fmt.Sprintf("%x", hash)
@@ -32,7 +31,6 @@ func get256Hash(password string) string {
 func  UserHandler (w http.ResponseWriter, r *http.Request) {
 
 	// Check Header Type as JSON
-
 	headerContentType := r.Header.Get("Content-Type")
 	if headerContentType != "application/json" {
 		http.Error(w, "Content-Type must be application/json", http.StatusUnsupportedMediaType)
@@ -40,7 +38,6 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Decode request Body
-
 	var user User
 	if err:= json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, "Bad request", http.StatusBadRequest)
@@ -81,7 +78,6 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 			}
 
 			// Insert the user into the database
-
 			insertUserResult, err := DB.Collection("users").InsertOne(ctx,users);
 			if err != nil {
 				http.Error(w, "Internal server error", http.StatusInternalServerError)
@@ -99,7 +95,6 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return error message
-
 	w.WriteHeader(http.StatusBadRequest)
 	w.Write([]byte("{\"message\": \"User Already Exists\"}"))
 	return

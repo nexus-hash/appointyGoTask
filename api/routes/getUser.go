@@ -13,6 +13,7 @@ import (
 
 /*
 	Takes user id as url path parameter and returns the user details
+	For Respose Data Refer README.md
 */
 
 func GetUserHandler(w http.ResponseWriter, r *http.Request) {
