@@ -56,6 +56,24 @@
     "userid"    : primitive.ObecjId,     
   }
 </code></pre>
-- GET /posts/users/{id}: To get all posts by user id
+- GET /posts/users/{uid}: To get all posts by userid  {Implemented and Available}
+<pre><code>
+  For the specified userid, returns the posts of the user based on Page No. and Page Limit.
+
+  Request Body:
+  {
+    "page"      : int,
+    "limit"     : int,
+  }
+
+  Response :
+  {
+    "_id"       : string,     //Later Converted to Mongo ObjectId
+    "caption"   : string,
+    "imageurl"  : string,
+    "postedat"  : string,
+    "userid"    : primitive.ObecjId,     
+  }
+</code></pre>
 
 
