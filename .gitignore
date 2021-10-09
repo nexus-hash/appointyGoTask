@@ -1,4 +1,3 @@
-.env
 .DS_Store
 .git
 
@@ -15,7 +14,4 @@
 .env.test.local
 .env.production.local
 .env
-
-env.go
 env.sh
-.gitinore
