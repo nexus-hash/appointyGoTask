@@ -16,10 +16,10 @@ var DB *mongo.Database
 
 // User Data Structure
 type User struct {
-	ID       string `bson:"_id" json:"_id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	ID        string  `bson:"_id" json:"_id"`
+	Username  string  `json:"username"`
+	Email     string  `json:"email"`
+	Password  string  `json:"password"`
 }
 
 // Hash Function to prevent password reverse engineering

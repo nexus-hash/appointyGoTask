@@ -11,11 +11,11 @@ import (
 )
 
 type Post struct {
-	Id 				string 		`bson:"_id" json:"_id"`
-	Caption 	string		`json:"caption"`	
-	ImageURL 	string		`json:"imageurl"`
-	PostedAt 	time.Time `json:"-"`
-	UserId 		primitive.ObjectID 		`json:"userid"`
+	Id        string                `bson:"_id" json:"_id"`
+	Caption   string                `json:"caption"`	
+	ImageURL  string                `json:"imageurl"`
+	PostedAt  time.Time             `json:"-"`
+	UserId    primitive.ObjectID    `json:"userid"`
 }
 
 /*
