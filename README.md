@@ -15,7 +15,7 @@
 </code></pre>
 
 - The server will be running on the port specified using the environment variable PORT
-- The API will through an error if the environment variables are not set
+- The API will through an runtime error if the environment variables are not set
 
 
 ### Details About the Endpoints
