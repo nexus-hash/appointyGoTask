@@ -41,12 +41,12 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 	// Get the Post timestamp
 
 	post.PostedAt = time.Now()
-	post.Id = primitive.NewObjectID().Hex()
+	pid := primitive.NewObjectID().Hex()
 	
 	// Add Post details to a bson Object
 
 	postDetails := bson.D{
-		{Key: "_id",Value: post.Id},
+		{Key: "_id",Value: pid},
 		{Key: "caption",Value: post.Caption},
 		{Key: "imageurl",Value: post.ImageURL},
 		{Key: "postedat",Value: post.PostedAt},
@@ -67,7 +67,6 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 	fmt.Println(insertResult.InsertedID)
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("{\"message\": \"Post created\"}"))
 	return;
 }
