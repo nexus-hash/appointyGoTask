@@ -8,6 +8,7 @@ import (
 	"testing"
 )
 
+// Test for the post /users request
 func TestPostUser(t *testing.T){
 	var jsonStr = []byte(`{"_id":"569ed8269353e9f4c51617aa","name":"test","email":"test@gmail.com","password":"testPassword"}`)
 	req,err := http.NewRequest("POST","/users",bytes.NewBuffer(jsonStr))
@@ -30,6 +31,7 @@ func TestPostUser(t *testing.T){
 	t.Log("PASS")
 }
 
+// Test for the post /posts request
 func TestPostPosts(t *testing.T){
 	var jsonStr = []byte(`{"caption":"test","imageurl":"http://test/test.jpeg","user_id":"4313144fa3"}`)
 	req,err := http.NewRequest("POST","/posts",bytes.NewBuffer(jsonStr))
@@ -52,6 +54,7 @@ func TestPostPosts(t *testing.T){
 
 }
 
+// Test for the get /posts request
 func TestGetPosts(t *testing.T){
 	id := "5d8f8f8f8f8f8f8f8f8f8f8"
 	url:= "/posts"+id
@@ -74,6 +77,7 @@ func TestGetPosts(t *testing.T){
 	}
 }
 
+// Test for the get /users request
 func TestGetUser(t *testing.T){
 	id := "5d8f8f8f8f8f8f3f8f8f8f8"
 	url:= "/users"+id
@@ -97,6 +101,7 @@ func TestGetUser(t *testing.T){
 	t.Log("PASS")
 }
 
+// Test for the get /posts/users request
 func TestGetUserPosts(t *testing.T){
 	id := "61616530c1471ce279c6fdd6"
 	url:= "/posts/users/"+id
