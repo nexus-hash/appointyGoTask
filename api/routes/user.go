@@ -30,12 +30,17 @@ func get256Hash(password string) string {
 }
 
 func  UserHandler (w http.ResponseWriter, r *http.Request) {
+
+	// Check Header Type as JSON
+
 	headerContentType := r.Header.Get("Content-Type")
 	if headerContentType != "application/json" {
 		http.Error(w, "Content-Type must be application/json", http.StatusUnsupportedMediaType)
 		return
 	}
 	
+	// Decode request Body
+
 	var user User
 	if err:= json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, "Bad request", http.StatusBadRequest)
@@ -58,6 +63,13 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "User Already Exists", http.StatusBadRequest)
 			return
 		}else{
+
+			/*
+				- Make Password Safe
+				- Generate a new ID
+				- Initialize the bson object	for user
+			*/
+
 			user.Password = get256Hash(user.Password);
 			user.ID = primitive.NewObjectID().Hex()
 			uuid,err:= primitive.ObjectIDFromHex(user.ID)
@@ -67,12 +79,17 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 				{Key: "email", Value: user.Email},
 				{Key: "password", Value: user.Password},
 			}
+
+			// Insert the user into the database
+
 			insertUserResult, err := DB.Collection("users").InsertOne(ctx,users);
 			if err != nil {
 				http.Error(w, "Internal server error", http.StatusInternalServerError)
 				fmt.Println(err)
 				return
 			}
+
+			// Return success message
 			fmt.Println(insertUserResult)
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
@@ -80,6 +97,9 @@ func  UserHandler (w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	// Return error message
+
 	w.WriteHeader(http.StatusBadRequest)
 	w.Write([]byte("{\"message\": \"User Already Exists\"}"))
 	return
