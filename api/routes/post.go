@@ -37,9 +37,14 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	// Get the Post timestamp
+
 	post.PostedAt = time.Now()
 	post.Id = primitive.NewObjectID().Hex()
 	
+	// Add Post details to a bson Object
+
 	postDetails := bson.D{
 		{Key: "_id",Value: post.Id},
 		{Key: "caption",Value: post.Caption},
@@ -47,12 +52,18 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 		{Key: "postedat",Value: post.PostedAt},
 		{Key: "userid",Value: post.UserId},
 	}
+
+	// Insert the Post details to the database
+
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	insertResult, err := DB.Collection("Post").InsertOne(ctx, postDetails)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	// Return the Success Message
+
 	fmt.Println(insertResult.InsertedID)
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")
