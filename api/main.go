@@ -18,7 +18,6 @@ import (
 func checkMethodType(method string,handler http.HandlerFunc) http.HandlerFunc{
 
 	//Checking the request method type and returning the handler function accordingly
-
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != method {
 			w.WriteHeader(http.StatusMethodNotAllowed)
