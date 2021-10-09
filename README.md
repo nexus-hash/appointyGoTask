@@ -73,7 +73,7 @@
     "imageurl"  : string,
     "postedat"  : string,
     "userid"    : mongo.ObecjId,     
-  },Upto the Page Limit or till the end of the posts]
+  }, Upto the Page Limit or till the end of the posts]
 </code></pre>
 
 
