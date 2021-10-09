@@ -43,7 +43,7 @@ func PostHandler (w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get the Post timestamp
+	// Get the Post timestamp Format: YYYY-MM-DDTHH:MM:SS.mmm+00:00
 	post.PostedAt = time.Now()
 	pid := primitive.NewObjectID().Hex()
 	
