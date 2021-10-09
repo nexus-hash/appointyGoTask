@@ -1,5 +1,22 @@
 # AppointyTask API
 
+### How to Compile
+
+- Export All the required environment variables
+<pre><code>
+  MONGO_URI = Database URI
+  PORT = Port to run the server on
+  DATABASE_NAME = Database name
+</code></pre>
+
+- Navigate to api directory and Run the command
+<pre><code>
+  go run main.go
+</code></pre>
+
+- The server will be running on the port specified using the environment variable PORT
+- The API will through an error if the environment variables are not set
+
 
 ### Details About the Endpoints
 
