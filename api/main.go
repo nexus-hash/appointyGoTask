@@ -51,7 +51,7 @@ func main() {
 
 	mux.HandleFunc("/posts",checkMethodType("POST",routes.PostHandler));
 	mux.HandleFunc("/posts/",checkMethodType("GET",routes.GetPostHandler));
-	mux.HandleFunc("/posts/users/:id",checkMethodType("GET",routes.GetUserPostsHandler));
+	mux.HandleFunc("/posts/users/",checkMethodType("GET",routes.GetUserPostsHandler));
 
 	//Server Port Configuration
 
