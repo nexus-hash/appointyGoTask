@@ -23,6 +23,12 @@ type Post struct {
 */
 
 func PostHandler (w http.ResponseWriter, r *http.Request) {
+
+	// Thread-safe
+	lock.Lock()
+	defer lock.Unlock()
+
+	// Check if the Content-Type is JSON
 	headerContentType := r.Header.Get("Content-Type")
 	if headerContentType != "application/json" {
 		http.Error(w, "Content-Type must be application/json", http.StatusUnsupportedMediaType)

@@ -18,6 +18,10 @@ import (
 
 func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 
+	// Thread-safe
+	lock.Lock()
+	defer lock.Unlock()
+
 	// Get user id from url path parameter
 	uid := strings.TrimPrefix(r.URL.Path, "/users/")
 	if uid == ""{

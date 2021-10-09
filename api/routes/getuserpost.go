@@ -1,16 +1,17 @@
 package routes
 
 // Neccessary imports for the function
-import(
-	"net/http"
-	"strings"
+import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"context"
+	"net/http"
+	"strings"
+	"sync"
 	"time"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 // Request Body Format
@@ -28,6 +29,8 @@ type Result struct{
 	UserId      primitive.ObjectID    `json:"userid"`
 }
 
+var lock sync.Mutex
+
 func  GetUserPostsHandler(w http.ResponseWriter, r *http.Request){
 
 	/*
@@ -37,6 +40,9 @@ func  GetUserPostsHandler(w http.ResponseWriter, r *http.Request){
 		For Respose Data Refer README.md
 	*/
 
+	// Thread-safe
+	lock.Lock()
+	defer lock.Unlock()
 
 	// Extract user id from the url
 	uid := strings.TrimPrefix(r.URL.Path, "/posts/users/")

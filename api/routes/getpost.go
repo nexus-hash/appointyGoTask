@@ -16,6 +16,10 @@ import (
 
 func GetPostHandler(w http.ResponseWriter, r *http.Request) {
 
+	// Thread-safe
+	lock.Lock()
+	defer lock.Unlock()
+
 	// Get the post id from the url path variable
 	pid := strings.TrimPrefix(r.URL.Path, "/posts/")
 	if pid == ""{

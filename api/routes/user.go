@@ -30,6 +30,10 @@ func get256Hash(password string) string {
 
 func  UserHandler (w http.ResponseWriter, r *http.Request) {
 
+	// Thread-safe
+	lock.Lock()
+	defer lock.Unlock()
+
 	// Check Header Type as JSON
 	headerContentType := r.Header.Get("Content-Type")
 	if headerContentType != "application/json" {
