@@ -20,7 +20,7 @@
 
 ### Details About the Endpoints
 
-- POST /users: To create a new user   {Implemented and Available}
+- [POST] /users: To create a new user   {Implemented and Available}  
 Checks if the user already exists in the database.
 If the user does not exist, creates a new user.
 <br></br>
