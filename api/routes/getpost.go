@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 
@@ -13,6 +12,7 @@ import (
 
 /*
 	Takes a post id as url path variable and returns the post details
+	For Respose Data Refer README.md
 */
 
 func GetPostHandler(w http.ResponseWriter, r *http.Request) {
@@ -20,10 +20,9 @@ func GetPostHandler(w http.ResponseWriter, r *http.Request) {
 	if pid == ""{
 		http.Error(w, "Invalid request No Post Id Found", http.StatusBadRequest)
 		return
-	} 
-	id,_ := strconv.ParseInt(pid, 10, 64)
+	}
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	getUserResult:=DB.Collection("Post").FindOne(ctx, bson.M{"_id":id})
+	getUserResult:=DB.Collection("Post").FindOne(ctx, bson.M{"_id":pid})
 	if getUserResult.Err() != nil {
 		http.Error(w, getUserResult.Err().Error(), http.StatusBadRequest)
 		return

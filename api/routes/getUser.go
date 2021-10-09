@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 /*
@@ -22,10 +22,14 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "User ID is required", http.StatusBadRequest)
 		return
 	}
-	id,_ := strconv.ParseInt(uid, 10, 64)
-	fmt.Println(id)
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	getUserResult:=DB.Collection("users").FindOne(ctx, bson.M{"_id":id})
+	uuid,err:= primitive.ObjectIDFromHex(uid);
+	if err!=nil{
+		http.Error(w, "Invalid User ID", http.StatusBadRequest)
+		return
+	}
+	fmt.Println("Getting user with id: ", uuid)
+	getUserResult:=DB.Collection("users").FindOne(ctx, bson.M{"_id":uuid})
 	if getUserResult.Err() != nil {
 		http.Error(w, getUserResult.Err().Error(), http.StatusInternalServerError)
 		return
