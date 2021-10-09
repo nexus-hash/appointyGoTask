@@ -1,5 +1,6 @@
 package routes
 
+// Neccessary imports for the function
 import(
 	"net/http"
 	"strings"
