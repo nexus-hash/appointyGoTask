@@ -14,8 +14,8 @@ import(
 
 // Request Body Format
 type GetUserPost struct{
-	Page				int 		`json:"page"`
-	Limit				int 		`json:"limit"`
+	Page    int    `json:"page"`
+	Limit   int    `json:"limit"`
 }
 
 // Get Response Format
