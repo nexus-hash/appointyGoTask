@@ -40,7 +40,7 @@
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
-    "userid"    : primitive.ObecjId,     
+    "userid"    : mongo.ObecjId,     
   }
 </code></pre>
 - GET /posts/{id}: To get a post by id    {Implemented and Available}
@@ -53,7 +53,7 @@
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
-    "userid"    : primitive.ObecjId,     
+    "userid"    : mongo.ObecjId,     
   }
 </code></pre>
 - GET /posts/users/{uid}: To get all posts by userid  {Implemented and Available}
@@ -72,7 +72,7 @@
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
-    "userid"    : primitive.ObecjId,     
+    "userid"    : mongo.ObecjId,     
   },Upto the Page Limit or till the end of the posts]
 </code></pre>
 
