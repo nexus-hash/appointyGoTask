@@ -60,7 +60,7 @@ Response :
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
-    "userid"    : mongo.ObecjId,     
+    "userid"    : mongo.ObectjId,     
   }
 </code></pre>
 - [ GET ] <b>/posts/{id}</b>: To get a post by id.
@@ -74,7 +74,7 @@ Response :
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
-    "userid"    : mongo.ObecjId,     
+    "userid"    : mongo.ObectjId,     
   }
 </code></pre>
 - [ GET ] /posts/users/{uid}: To get all posts by userid.
@@ -95,7 +95,7 @@ Response :
     "caption"   : string,
     "imageurl"  : string,
     "postedat"  : string,
-    "userid"    : mongo.ObecjId,     
+    "userid"    : mongo.ObectjId,     
   }, Upto the Page Limit or till the end of the posts]
 </code></pre>
 
